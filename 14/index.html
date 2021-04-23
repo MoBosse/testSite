@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-        <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2CArray.prototype.forEach%2CString.prototype.includes%2CURLSearchParams%2CCustomEvent%2CArray.prototype.includes%2CArray.prototype.filter%2CArray.prototype.some%2CArray.prototype.find%2CObject.assign%2CArray.isArray%2CObject.values%2CArray.from%2CSet"></script>
+        <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2CArray.prototype.forEach%2CString.prototype.includes%2CURLSearchParams%2CCustomEvent%2CArray.prototype.includes%2CArray.prototype.filter%2CArray.prototype.some%2CArray.prototype.find%2CArray.prototype.reduce%2CObject.assign%2CArray.isArray%2CObject.values%2CArray.from%2CSet%2CArray.prototype.findIndex"></script>
 <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.15.0/js/canvas-to-blob.min.js"></script>
 
         <script>
@@ -19,11 +19,23 @@ var opensdg = {
     this.chartConfigAlterations.push(callback);
   },
 
+  tableConfigAlterations: [],
+  // A hook which can be used to modify the configuration for Datatables.
+  tableConfigAlter: function(callback) {
+    this.tableConfigAlterations.push(callback);
+  },
+
   // A hook which can be replaced to alter whether/how the values that are
   // displayed on indicator tables/graphs get rounded.
   dataRounding: function(value) {
     // Alterations go here.
     return value;
+  },
+
+  // A hook which can be used to alter the data before it is displayed on charts/tables.
+  dataDisplayAlterations: [],
+  dataDisplayAlter: function(callback) {
+    this.dataDisplayAlterations.push(callback);
   },
 
   language: 'en',
@@ -121,7 +133,7 @@ var translations = {
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/testSite/assets/css/style.css?v=20210423100140">
+        <link rel="stylesheet" href="/testSite/assets/css/style.css?v=20210423101008">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet" crossorigin="">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
@@ -134,6 +146,7 @@ var translations = {
     </head>
 <body class="language-en layout-goal-by-target-vertical">
 <!-- <div class="container"> -->
+
 
 <script>translations['header'] = {"alpha":"Alpha","disclaimer":"This is a development website. We welcome your <a href=\"mailto:%email_address\">feedback</a>.","skip_link":"Skip to main content","tag_line":"17 Goals to Transform our World"};</script>
 
@@ -149,84 +162,90 @@ var translations = {
 
 </div>
 
-<header role="banner">
+<header role="banner" class="header-menu-left-aligned">
   <div class="container">
 
     <div class="logo-and-mobile-widgets">
       <a class="navbar-brand" href="/testSite/" id="home">
-        <img src="/testSite/assets/img/SDG_logo.png" alt="Sustainable Development Goals - 17 Goals to Transform our World" />
-      </a>
-
+    <img src="" alt="" />
+</a>
       <div class="mobile-widgets">
-        <ul id='accessibility-nav' class='contrast-switcher'></ul></div>
+    <ul id='accessibility-nav' class='contrast-switcher'></ul></div>
     </div>
 
-    <nav class="navbar navbar-default" id="main-nav">
-
-      <ul class="top-level">
-        <li id="menuToggle"
-            aria-label=""
-            aria-haspopup="true">
-          <button data-target="menu-mobile" aria-expanded="false">Menu</button>
-          <ul class="nav navbar-nav menu-target contrast-switcher" id="menu-mobile"><li class="nav-link ">
-    <a href="/testSite/goals">Goals</a>
-    </li><li class="nav-link ">
-    <a href="/testSite/reporting-status">Data&nbspavailability</a>
-    </li><li class="nav-link ">
-    <a href="/testSite/about">About us</a>
-    </li><li class="nav-link ">
-    <a href="/testSite/guidance">Guidance</a>
-    </li><li class="nav-link ">
-    <a href="/testSite/faq">FAQs</a>
-    </li><li class="nav-link ">
-    <a href="/testSite/news">menu.updates</a>
-    </li></ul>
-
-        </li>
-        <li id="searchToggle"
-            aria-label=""
-            aria-haspopup="true">
-          <button data-target="search-mobile" aria-expanded="false">Search</button>
-          <div id="search-mobile" class="menu-target">
-  <form action="/testSite/search">
-    <input type="text" name="q" id="indicator_search-mobile" title="Search" />
-    <label class="sr-only" for="indicator_search-mobile">Search</label>
-    <button aria-label="Search" id="search-mobile-btn" type="submit"><i class="fa fa-search" aria-hidden="false"></i></button>
-  </form>
-</div>
-
-        </li>
-      </ul>
-
+    <div class="search-and-desktop-widgets">
       <div id="search" class="menu-target">
   <form action="/testSite/search">
-    <input type="text" name="q" id="indicator_search" title="Search" />
     <label class="sr-only" for="indicator_search">Search</label>
-    <button aria-label="Search" id="search-btn" type="submit"><i class="fa fa-search" aria-hidden="false"></i></button>
+    <input type="text" name="q" id="indicator_search" title="Search" /><!--
+    --><button aria-label="Search" id="search-btn" type="submit"><i class="fa fa-search" aria-hidden="false"></i></button>
   </form>
 </div>
 
+      <div class="navbar navbar-default widgets-without-menu">
+        <ul class="nav navbar-nav contrast-switcher"></ul>
+      </div>
+    </div>
 
-      <ul class="nav navbar-nav menu-target contrast-switcher" id="menu"><li class="nav-link ">
+    <div class="navbar navbar-default menu-without-widgets" id="main-nav">
+      <ul class="top-level">
+    <li id="menuToggle"
+        aria-label=""
+        aria-haspopup="true">
+        <button data-target="menu-mobile" aria-expanded="false">Menu</button>
+        <ul class="nav navbar-nav menu-target contrast-switcher" id="menu-mobile"><li class="nav-link ">
     <a href="/testSite/goals">Goals</a>
-    </li><li class="nav-link ">
+</li><li class="nav-link ">
     <a href="/testSite/reporting-status">Data&nbspavailability</a>
-    </li><li class="nav-link ">
+</li><li class="nav-link ">
     <a href="/testSite/about">About us</a>
-    </li><li class="nav-link ">
+</li><li class="nav-link ">
     <a href="/testSite/guidance">Guidance</a>
-    </li><li class="nav-link ">
+</li><li class="nav-link ">
     <a href="/testSite/faq">FAQs</a>
-    </li><li class="nav-link ">
+</li><li class="nav-link ">
     <a href="/testSite/news">menu.updates</a>
-    </li></ul>
+</li>
+</ul>
 
+    </li>
+    <li id="searchToggle"
+        aria-label=""
+        aria-haspopup="true">
+        <button data-target="search-mobile" aria-expanded="false">Search</button>
+        <div id="search-mobile" class="menu-target">
+  <form action="/testSite/search">
+    <label class="sr-only" for="indicator_search-mobile">Search</label>
+    <input type="text" name="q" id="indicator_search-mobile" title="Search" /><!--
+    --><button aria-label="Search" id="search-mobile-btn" type="submit"><i class="fa fa-search" aria-hidden="false"></i></button>
+  </form>
+</div>
 
-    </nav>
+    </li>
+</ul>
+      <ul class="nav navbar-nav menu-target " id="menu"><li class="nav-link ">
+    <a href="/testSite/goals">Goals</a>
+</li><li class="nav-link ">
+    <a href="/testSite/reporting-status">Data&nbspavailability</a>
+</li><li class="nav-link ">
+    <a href="/testSite/about">About us</a>
+</li><li class="nav-link ">
+    <a href="/testSite/guidance">Guidance</a>
+</li><li class="nav-link ">
+    <a href="/testSite/faq">FAQs</a>
+</li><li class="nav-link ">
+    <a href="/testSite/news">menu.updates</a>
+</li>
+</ul>
+
+    </div>
+
   </div>
 
 </header>
 <div id="top" tabindex=-1></div>
+
+
 
 
 <div class="container">
@@ -238,13 +257,14 @@ var translations = {
   
 </ol>
 
+  
 </div>
 
 <div class="heading goal-banner goal-14">
   <div class="container">
     <div class="row">
       <div class="col-xs-4 col-md-3 col-lg-2 goal-tiles">
-        <img src="https://open-sdg.org/sdg-translations/assets/img/goals/en/14.png" alt="Life below water - Goal 14" id="goal-14"/>
+        <img src="https://open-sdg.org/sdg-translations/assets/img/goals/en/14.png" alt="Life below water - Goal 14" id="goal-14" class="goal-icon-image goal-icon-image-" />
       </div>
       <div class="col-xs-8 col-md-9 col-lg-10">
         <h1>
@@ -254,6 +274,7 @@ var translations = {
     </div>
   </div>
 </div>
+
 
 <div id="main-content" class="container" role="main">
 
@@ -277,11 +298,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -289,10 +305,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-1-1">Index of coastal eutrophication and floating plastic debris density</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -308,11 +329,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -320,10 +336,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-2-1">Proportion of national exclusive economic zones managed using ecosystem-based approaches</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -339,11 +360,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -351,10 +367,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-3-1">Average marine acidity (pH) measured at agreed suite of representative sampling stations</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -370,11 +391,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -382,10 +398,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-4-1">Proportion of fish stocks within biologically sustainable levels</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -401,11 +422,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -413,10 +429,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-5-1">Coverage of protected areas in relation to marine areas</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -432,11 +453,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -444,10 +460,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-6-1">Progress by countries in the degree of implementation of international instruments aiming to combat illegal, unreported and unregulated fishing</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -463,11 +484,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -475,10 +491,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-7-1">Sustainable fisheries as a proportion of GDP in small island developing States, least developed countries and all countries</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -494,11 +515,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -506,10 +522,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-a-1">Proportion of total research budget allocated to research in the field of marine technology</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -525,11 +546,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -537,10 +553,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-b-1">Progress by countries in the degree of application of a legal/regulatory/policy/institutional framework which recognizes and protects access rights for small-scale fisheries</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -556,11 +577,6 @@ var translations = {
           
           
           
-          
-          
-          
-          
-          
 
           <div class="goal-indicator">
             <h4>
@@ -568,10 +584,15 @@ var translations = {
             </h4>
             <span class="indicator-name"><a href="/testSite/14-c-1">Number of countries making progress in ratifying, accepting and implementing through legal, policy and institutional frameworks, ocean-related instruments that implement international law, as reflected in the United Nations Convention on the Law of the Sea, for the conservation and sustainable use of the oceans and their resources</a></span>
             <span class="sr-only"></span>
-            <span class="status notstarted">
-              Exploring data sources
-            </span>
             
+
+
+<span class="status notstarted">
+    Exploring data sources
+</span>
+
+            
+
           </div>
         
       </div>
@@ -626,7 +647,7 @@ var translations = {
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 <script src="//cdn.datatables.net/fixedcolumns/3.2.3/js/dataTables.fixedColumns.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/patternomaly@1.3.2/dist/patternomaly.js"></script>
 
@@ -640,12 +661,12 @@ var translations = {
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = 'Search';</script>
 
-<script src='/testSite/assets/js/sdg.js?v=20210423100140'></script>
+<script src='/testSite/assets/js/sdg.js?v=20210423101008'></script>
 
 
     
     
-    <script src="/testSite/assets/js/custom.js?v=20210423100140"></script><script>
+    <script src="/testSite/assets/js/custom.js?v=20210423101008"></script><script>
 $(function() {
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
@@ -685,10 +706,13 @@ $(function() {
               stackedDisaggregation: domData.stackeddisaggregation,
               graphAnnotations: domData.graphannotations,
               indicatorDownloads: domData.indicatordownloads,
+              compositeBreakdownLabel: domData.compositebreakdownlabel,
+              precision: domData.precision,
             }),
             view  = new indicatorView(model, {
               rootElement: '#indicatorData',
               legendElement: '#plotLegend',
+              decimalSeparator: '',
               maxChartHeight: 420,
               tableColumnDefs: [
                 { maxCharCount: 25 }, // nowrap
