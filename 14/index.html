@@ -11,7 +11,7 @@
 var opensdg = {
 
   // A base URL for asynchronous calls to SDG data.
-  remoteDataBaseUrl: 'https://open-sdg.org/open-sdg-data-starter/en',
+  remoteDataBaseUrl: 'https://mobosse.github.io/testData/en',
 
   chartConfigAlterations: [],
   // A hook which can be used to modify the configuration for Chart.js.
@@ -103,7 +103,7 @@ var translations = {
         ================================================== -->
 
         
-    <title>Goal 14 - Life below water - Indicators For The Sustainable Development Goals</title>
+    <title>Goal 14 - Life below water - general.site_title</title>
 
 
 
@@ -117,13 +117,13 @@ var translations = {
         
 
         <!--[if IE 9]>
-        <script src="/open-sdg-site-starter/assets/js/lib/classList.js"></script>
+        <script src="/testSite/assets/js/lib/classList.js"></script>
         <![endif]-->
 
         <!-- Favicons ================================================== -->
         <!-- 128x128 -->
-        <link rel="shortcut icon" type="image/ico" href="/open-sdg-site-starter/assets/img/favicons/favicon.ico">
-        <link rel="icon" type="image/png" href="/open-sdg-site-starter/assets/img/favicons/favicon.png"><!-- 192x192, as recommended for Android
+        <link rel="shortcut icon" type="image/ico" href="/testSite/assets/img/favicons/favicon.ico">
+        <link rel="icon" type="image/png" href="/testSite/assets/img/favicons/favicon.png"><!-- 192x192, as recommended for Android
         http://updates.html5rocks.com/2014/11/Support-for-theme-color-in-Chrome-39-for-Android
         -->
 
@@ -133,7 +133,7 @@ var translations = {
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/open-sdg-site-starter/assets/css/style.css?v=20210423064732">
+        <link rel="stylesheet" href="/testSite/assets/css/style.css?v=20210423073301">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet" crossorigin="">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
@@ -148,7 +148,7 @@ var translations = {
 <!-- <div class="container"> -->
 
 
-<script>translations['header'] = {"alpha":"Alpha","default_contrast":"Default contrast","disable_high_contrast":"Disable high contrast","disclaimer":"This is a development website. We welcome your <a href=\"mailto:%email_address\">feedback</a>.","enable_high_contrast":"Enable high contrast","high_contrast":"High contrast","skip_link":"Skip to main content","tag_line":"17 Goals to Transform our World","toggle_menu":"Menu toggle. Click to expand or collapse the menu.","toggle_search":"Search toggle. Click to expand or collapse the search bar."};</script>
+<script>translations['header'] = {"alpha":"Alpha","disclaimer":"This is a development website. We welcome your <a href=\"mailto:%email_address\">feedback</a>.","skip_link":"Skip to main content","tag_line":"17 Goals to Transform our World"};</script>
 
 <a class="sr-only sr-only-focusable" id="skiplink" href="#main-content" tabindex="0">Skip to main content</a>
 <div id="disclaimer">
@@ -166,31 +166,16 @@ var translations = {
   <div class="container">
 
     <div class="logo-and-mobile-widgets">
-      <a class="navbar-brand" href="/open-sdg-site-starter/" id="home">
-    <img src="/open-sdg-site-starter/assets/img/SDG_logo.png" alt="Sustainable Development Goals - 17 Goals to Transform our World" />
+      <a class="navbar-brand" href="/testSite/" id="home">
+    <img src="/testSite/assets/img/SDG_logo.png" alt="Sustainable Development Goals - 17 Goals to Transform our World" />
 </a>
       <div class="mobile-widgets">
-    <ul id='accessibility-nav' class='contrast-switcher'></ul><div class="language-toggle-mobile">
-        <div class="language-toggle-container">
-  
-  <div class="btn-group language-toggle-dropdown ">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="language-globe-in-dropdown"><i class="fa fa-globe language-toggle-globe-dropdown"></i></span><span class="language-name">English</span>
-      <span class="language-abbreviation">en</span><i class="language-toggle-caret fa fa-chevron-down"></i></button>
-    <ul class="dropdown-menu"><li>
-            <a href="/open-sdg-site-starter/es/14/">
-              Español
-            </a>
-          </li></ul>
-  </div>
-</div>
-
-    </div></div>
+    <ul id='accessibility-nav' class='contrast-switcher'></ul></div>
     </div>
 
     <div class="search-and-desktop-widgets">
       <div id="search" class="menu-target">
-  <form action="/open-sdg-site-starter/search">
+  <form action="/testSite/search">
     <label class="sr-only" for="indicator_search">Search</label>
     <input type="text" name="q" id="indicator_search" title="Search" /><!--
     --><button aria-label="Search" id="search-btn" type="submit"><i class="fa fa-search" aria-hidden="false"></i></button>
@@ -198,84 +183,38 @@ var translations = {
 </div>
 
       <div class="navbar navbar-default widgets-without-menu">
-        <ul class="nav navbar-nav contrast-switcher"><li class="language-toggle-menu-header">
-            
-
-
-
-
-
-  <div class="language-toggle-container">
-  
-  <div class="btn-group language-toggle-dropdown ">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="language-globe-in-dropdown"><i class="fa fa-globe language-toggle-globe-dropdown"></i></span><span class="language-name">English</span>
-      <span class="language-abbreviation">en</span><i class="language-toggle-caret fa fa-chevron-down"></i></button>
-    <ul class="dropdown-menu"><li>
-            <a href="/open-sdg-site-starter/es/14/">
-              Español
-            </a>
-          </li></ul>
-  </div>
-</div>
-
-
-
-        </li></ul>
+        <ul class="nav navbar-nav contrast-switcher"></ul>
       </div>
     </div>
 
     <div class="navbar navbar-default menu-without-widgets" id="main-nav">
       <ul class="top-level">
     <li id="menuToggle"
-        aria-label="Menu toggle. Click to expand or collapse the menu."
+        aria-label=""
         aria-haspopup="true">
         <button data-target="menu-mobile" aria-expanded="false">Menu</button>
         <ul class="nav navbar-nav menu-target contrast-switcher" id="menu-mobile"><li class="nav-link ">
-    <a href="/open-sdg-site-starter/goals">Goals</a>
+    <a href="/testSite/goals">Goals</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/reporting-status">Reporting Status</a>
+    <a href="/testSite/reporting-status">Data&nbspavailability</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/about">About</a>
+    <a href="/testSite/about">About us</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/guidance">Guidance</a>
+    <a href="/testSite/guidance">Guidance</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/faq">FAQ</a>
+    <a href="/testSite/faq">FAQs</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/news">Updates</a>
-</li><li class="language-toggle-menu-header">
-    
-
-
-
-
-
-  <div class="language-toggle-container">
-  
-  <div class="btn-group language-toggle-dropdown ">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="language-globe-in-dropdown"><i class="fa fa-globe language-toggle-globe-dropdown"></i></span><span class="language-name">English</span>
-      <span class="language-abbreviation">en</span><i class="language-toggle-caret fa fa-chevron-down"></i></button>
-    <ul class="dropdown-menu"><li>
-            <a href="/open-sdg-site-starter/es/14/">
-              Español
-            </a>
-          </li></ul>
-  </div>
-</div>
-
-
-
+    <a href="/testSite/news">menu.updates</a>
 </li>
 </ul>
 
     </li>
     <li id="searchToggle"
-        aria-label="Search toggle. Click to expand or collapse the search bar."
+        aria-label=""
         aria-haspopup="true">
         <button data-target="search-mobile" aria-expanded="false">Search</button>
         <div id="search-mobile" class="menu-target">
-  <form action="/open-sdg-site-starter/search">
+  <form action="/testSite/search">
     <label class="sr-only" for="indicator_search-mobile">Search</label>
     <input type="text" name="q" id="indicator_search-mobile" title="Search" /><!--
     --><button aria-label="Search" id="search-mobile-btn" type="submit"><i class="fa fa-search" aria-hidden="false"></i></button>
@@ -285,17 +224,17 @@ var translations = {
     </li>
 </ul>
       <ul class="nav navbar-nav menu-target " id="menu"><li class="nav-link ">
-    <a href="/open-sdg-site-starter/goals">Goals</a>
+    <a href="/testSite/goals">Goals</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/reporting-status">Reporting Status</a>
+    <a href="/testSite/reporting-status">Data&nbspavailability</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/about">About</a>
+    <a href="/testSite/about">About us</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/guidance">Guidance</a>
+    <a href="/testSite/guidance">Guidance</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/faq">FAQ</a>
+    <a href="/testSite/faq">FAQs</a>
 </li><li class="nav-link ">
-    <a href="/open-sdg-site-starter/news">Updates</a>
+    <a href="/testSite/news">menu.updates</a>
 </li>
 </ul>
 
@@ -312,8 +251,8 @@ var translations = {
 <div class="container">
   <ol class="breadcrumb">
   
-  <li><a href="/open-sdg-site-starter/">Home</a></li>
-  <li><a href="/open-sdg-site-starter/goals">Goals</a></li>
+  <li><a href="/testSite/">Home</a></li>
+  <li><a href="/testSite/goals">Goals</a></li>
   
   
 </ol>
@@ -343,7 +282,7 @@ var translations = {
 
 
   <div class="container">
-    <h2>Targets and indicators</h2>
+    <h2></h2>
 
     
     
@@ -368,8 +307,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.1.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-1-1">Index of coastal eutrophication and floating plastic debris density</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-1-1">Index of coastal eutrophication and floating plastic debris density</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -400,8 +339,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.2.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-2-1">Proportion of national exclusive economic zones managed using ecosystem-based approaches</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-2-1">Proportion of national exclusive economic zones managed using ecosystem-based approaches</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -432,8 +371,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.3.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-3-1">Average marine acidity (pH) measured at agreed suite of representative sampling stations</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-3-1">Average marine acidity (pH) measured at agreed suite of representative sampling stations</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -464,8 +403,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.4.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-4-1">Proportion of fish stocks within biologically sustainable levels</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-4-1">Proportion of fish stocks within biologically sustainable levels</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -496,8 +435,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.5.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-5-1">Coverage of protected areas in relation to marine areas</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-5-1">Coverage of protected areas in relation to marine areas</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -528,8 +467,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.6.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-6-1">Progress by countries in the degree of implementation of international instruments aiming to combat illegal, unreported and unregulated fishing</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-6-1">Progress by countries in the degree of implementation of international instruments aiming to combat illegal, unreported and unregulated fishing</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -560,8 +499,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.7.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-7-1">Sustainable fisheries as a proportion of GDP in small island developing States, least developed countries and all countries</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-7-1">Sustainable fisheries as a proportion of GDP in small island developing States, least developed countries and all countries</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -576,7 +515,7 @@ var translations = {
         <h3 class="goal-target">
           <span class="target-number"><span class="sr-only">Target</span> 14.a</span>
         </h3>
-        <span class="target-name">Increase scientific knowledge, develop research capacity and transfer marine technology, taking into account the Intergovernmental Oceanographic Commission Criteria and Guidelines on the Transfer of Marine Technology, in order to improve ocean health and to enhance the contribution of marine biodiversity to the development of developing countries, in particular small island developing States and least developed countries</span>
+        <span class="target-name">Increase scientific knowledge, develop research capacity and transfer marine technology, taking into account the I<small>NTERGOVERNMENTAL</small> O<small>CEANOGRAPHIC</small> C<small>OMMISSION</small> C<small>RITERIA AND</small> G<small>UIDLINES ON THE</small> T<small>RANSFER OF</small> M<small>ARINE</small> T<small>ECHNOLOGY</small>, in order to improve ocean health and to enhance the contribution of marine biodiversity to the development of developing countries, in particular small island developing States and least developed countries</span>
         
 
           
@@ -592,8 +531,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.a.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-a-1">Proportion of total research budget allocated to research in the field of marine technology</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-a-1">Proportion of total research budget allocated to research in the field of marine technology</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -624,8 +563,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.b.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-b-1">Progress by countries in the degree of application of a legal/regulatory/policy/institutional framework which recognizes and protects access rights for small-scale fisheries</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-b-1">Progress by countries in the degree of application of a legal/regulatory/policy/institutional framework which recognizes and protects access rights for small-scale fisheries</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -640,7 +579,7 @@ var translations = {
         <h3 class="goal-target">
           <span class="target-number"><span class="sr-only">Target</span> 14.c</span>
         </h3>
-        <span class="target-name">Enhance the conservation and sustainable use of oceans and their resources by implementing international law as reflected in the United Nations Convention on the Law of the Sea, which provides the legal framework for the conservation and sustainable use of oceans and their resources, as recalled in paragraph 158 of “The future we want”</span>
+        <span class="target-name">Enhance the conservation and sustainable use of oceans and their resources by implementing international law as reflected in the United Nations Convention on the Law of the Sea, which provides the legal framework for the conservation and sustainable use of oceans and their resources, as recalled in paragraph 158 of T<small>HE FUTURE WE WANT</small></span>
         
 
           
@@ -656,8 +595,8 @@ var translations = {
             <h4>
               <span class="indicator-number"><span class="sr-only">Indicator</span> 14.c.1</span>
             </h4>
-            <span class="indicator-name"><a href="/open-sdg-site-starter/14-c-1">Number of countries making progress in ratifying, accepting and implementing through legal, policy and institutional frameworks, ocean-related instruments that implement international law, as reflected in the United Nations Convention on the Law of the Sea, for the conservation and sustainable use of the oceans and their resources</a></span>
-            <span class="sr-only">Indicator status</span>
+            <span class="indicator-name"><a href="/testSite/14-c-1">Number of countries making progress in ratifying, accepting and implementing through legal, policy and institutional frameworks, ocean-related instruments that implement international law, as reflected in the United Nations Convention on the Law of the Sea, for the conservation and sustainable use of the oceans and their resources</a></span>
+            <span class="sr-only"></span>
             <span class="status notstarted">
               Exploring data sources
             </span>
@@ -676,7 +615,7 @@ var translations = {
       <div class="col-xs-12">
         <div id="footerLinks">
           <ul>
-            <li><a href="https://open-sdg.org">Built using Open SDG</a></li>
+            <li><a href="https://open-sdg.org">Site built using Open SDG</a></li>
             
               <li>
                 
@@ -685,16 +624,16 @@ var translations = {
                 </li>
               <li>
                 
-                  <a href="https://twitter.com/MyTwitterAccount" target="_blank">Twitter</a>
+                  <a href="https://twitter.com/MyTwitterAccount" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i>@destatis</a></a>
                 
                 </li>
               <li>
                 
-                  <a href="https://facebook.com/MyFacebookAccount" target="_blank">Facebook</a>
+                  <a href="https://facebook.com/MyFacebookAccount" target="_blank">general.facebook</a>
                 
                 </li>
               <li>
-                <a href="/open-sdg-site-starter/about/cookies-and-privacy/">Cookies</a>
+                <a href="/testSite/about/cookies-and-privacy/">Cookies</a>
                 
                 </li>
               
@@ -726,17 +665,17 @@ var translations = {
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.3/dist/html2canvas.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
 <script>translations['general'] = translations['general'] || {};
-    translations['general']['hide'] = 'hide';</script>
+    translations['general']['hide'] = '';</script>
 
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = 'Search';</script>
 
-<script src='/open-sdg-site-starter/assets/js/sdg.js?v=20210423064732'></script>
+<script src='/testSite/assets/js/sdg.js?v=20210423073301'></script>
 
 
     
     
-    <script src="/open-sdg-site-starter/assets/js/custom.js?v=20210423064732"></script><script>
+    <script src="/testSite/assets/js/custom.js?v=20210423073301"></script><script>
 $(function() {
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
